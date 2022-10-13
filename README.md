@@ -26,6 +26,11 @@ The data will be collected from the Island - a virtual simulation of human popul
 **Reference book**: An Introduction to Statistical Learning with Applications in R by *Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani   
 **Link**: https://static1.squarespace.com/static/5ff2adbe3fe4fe33db902812/t/6009dd9fa7bc363aa822d2c7/1611259312432/ISLR+Seventh+Printing.pdf
 
+## Data set
+- **Data2020.csv** : training set
+- **Data2020testX.csv** : prediction testing set  
+*Both on the file
+
 ## Models
 - Linear Regression Line
 - Hybrid Stepwise
