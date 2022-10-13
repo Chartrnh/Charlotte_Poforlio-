@@ -13,7 +13,7 @@ As for now, to tackle the complexity of this matter, I will start off with a top
 
 The data will be collected from the Island - a virtual simulation of human population that has been developed to support learning and teaching in experimental design, epidemiology and statistical reasoning. These simulated islanders will be asked a simple question of how much they spend on a meal, followed some personal questions about theit income, workclass, education and we will use the data to predict individual spending on food and its pattern.
 
-# Topic: What is the fittiest machine? - Project Overview
+# Topic: What is the optimal machine? - Project Overview
 - Gathered data from simulated islanders using one question
 - Used 10-fold Cross Valuation to set up 10 sets of training data and validating data 
 - Calculated Mean Squared Prediction Error (MSPE) and drawed its distribution on boxplot based on each type of model and training-validating set we attempt to fit 
@@ -38,8 +38,18 @@ The data will be collected from the Island - a virtual simulation of human popul
 
 ## Results
 
+We sucessfully generate a boxplot of MSPE distribution throughout models and cross-validation folds.
 ![image](https://user-images.githubusercontent.com/108549500/195476453-b0ef19b9-6c90-48e8-a19c-133a266a8823.png)
 ![image](https://user-images.githubusercontent.com/108549500/195476896-8b8089ac-fa38-4ca7-91b5-cec5bb569db4.png)
+
+It's noticeable right away the good performance that comes Generalized Addictive Model.
+
+As we choose GAM to be our optimal machine, the prediction is quickly drawn out with its accuracy upto 90%. Below here is its table and scatterplot.
+
+![image](https://user-images.githubusercontent.com/108549500/195500942-a9145a2e-f794-4cfe-9b4a-4419732d9a0e.png)
+![image](https://user-images.githubusercontent.com/108549500/195502148-f6592516-3691-494b-9fd8-7f7ec1aa5b30.png)
+
+
 
 
 
