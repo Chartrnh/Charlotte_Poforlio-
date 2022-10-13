@@ -7,7 +7,15 @@ library(glmnet)
 
 data <- read_csv("Data2020.csv")
 data.t <- read_csv("Data2020testX.csv")
-View(data.t)
+View(data)
+
+#Rename variable for simplification 
+
+data <- rename(data, Y= 'Meal cost')
+for (i in 2:14){
+  xx <- paste("X", i-1, sep = "")
+  colnames(data)[i] <- xx
+}
 
 get.folds = function(n, V){
   n.fold = ceiling(n / V) 
@@ -113,7 +121,7 @@ for (v in 1:V) {
   n.train = nrow(data.train)
   folds.ppr = get.folds(n.train, K.ppr)
   
-  MSPEs.cv = array(0, dim = c(max.terms, K.ppr))
+  MSPE.cv = array(0, dim = c(max.terms, K.ppr))
   
   for (k in 1:K.ppr) {
     
@@ -146,7 +154,7 @@ for (v in 1:V) {
     MSPE.cv[5,k] = mean((Y.valid.ppr-pred5.cv)^2)
   }
   
-  ave.MSPE.ppr = apply(MSPEs.cv, 1, mean)
+  ave.MSPE.ppr = apply(MSPE.cv, 1, mean)
   best.terms = which.min(ave.MSPE.ppr)
   best.terms
   fit.ppr.best = ppr(Y ~ ., data = data.train,
@@ -160,7 +168,7 @@ for (v in 1:V) {
 }
 View(MSPE)
 
-summary(MSPE)``
+summary(MSPE)
 x11(h=7, w=10)
 par(mfrow=c(1,3))
 boxplot(MSPE, las=2, ylim=c(1,3), main="MSPE of 10 fold for different methods")
@@ -204,7 +212,7 @@ for (v in 1:V) {
   data.valid=data[folds==v,]
   Y.valid = data.valid$Y
   
-gam.all <- gam(data=data.train, formula=Y~s(X1)+s(X2)+s(X3)+s(X4,k=length(unique(data.train$X4)))+s(X5)+s(X6)+s(X7)+s(X8)+s(X9)+s(X10, k=length(unique(data.train$X10)))+s(X11)+s(X12, k= length(unique(data.train$X12)))+s(X13)+s(X14)+s(X15),  family=gaussian(link=identity))
+gam.all <- gam(data=data.train, formula=Y~s(X1)+s(X2)+s(X3)+s(X4,k=length(unique(data.train$X4)))+s(X5)+s(X6)+s(X7)+s(X8)+s(X9)+s(X10, k=length(unique(data.train$X10)))+s(X11)+s(X12, k= length(unique(data.train$X12)))+s(X13),  family=gaussian(link=identity))
 pred.gam = predict(gam.all, newdata=data.valid)
 MSPE.gam[v,1] = mean((Y.valid-pred.gam)^2)
 }
@@ -214,7 +222,7 @@ x <- which.min(MSPE.gam[,1])
 x
 gam.all <- gam(data=data[folds!=x,], formula=Y~s(X1)+s(X2)+s(X3)+s(X4,k=length(unique(data.train$X4)))+
                  s(X5)+s(X6)+s(X7)+s(X8)+s(X9)+s(X10, k=length(unique(data.train$X10)))+
-                 s(X11)+s(X12, k= length(unique(data.train$X12)))+s(X13)+s(X14)+s(X15),  family=gaussian(link=identity))
+                 s(X11)+s(X12, k= length(unique(data.train$X12)))+s(X13),  family=gaussian(link=identity))
 pred.gam = predict(gam.all, newdata=data.t)
 View(pred.gam)
 
@@ -228,4 +236,6 @@ getwd()
 setwd("C:/Users/hoatr/OneDrive/Documents/")
 ?write.table
 write.table(as.data.frame(pred.gam), file ="Hoa.txt", sep=",")
+
+
 
