@@ -36,6 +36,12 @@ The data will be collected from the Island - a virtual simulation of human popul
 - Full regression tree 
 - Regression tree using CV with 1SE and min optimal pruning
 
+## Results
+
+![image](https://user-images.githubusercontent.com/108549500/195476453-b0ef19b9-6c90-48e8-a19c-133a266a8823.png)
+![image](https://user-images.githubusercontent.com/108549500/195476896-8b8089ac-fa38-4ca7-91b5-cec5bb569db4.png)
+
+
 
 
 
