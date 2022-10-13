@@ -6,10 +6,9 @@ library(glmnet)
 
 
 data <- read_csv("Data2020.csv")
-data.t <- read_csv("Data2020testX.csv")
 View(data)
 
-#Rename variable for simplification 
+# Rename variable for simplification 
 
 data <- rename(data, Y= 'Meal cost')
 for (i in 2:14){
@@ -27,6 +26,7 @@ get.folds = function(n, V){
   return(folds.rand)
 }
 
+#  Set up 10-fold CV and table of MSPE for easy acess
 V=10
 n=nrow(data)
 folds=get.folds(n,V)
@@ -36,6 +36,7 @@ MSPE=matrix(NA, nrow=V, ncol=10)
 colnames(MSPE)=c("LS", "Hybrid Stepwise ", "Ridge", "LASSO-min", "LASSO-1se", "GAM", "PPR", 
                  "Full tree", "tree-min", "tree-1se")
 
+# Set up For loop for model training and testing
 for (v in 1:V) {
   data.train=data[folds!=v,]
   data.valid=data[folds==v,]
@@ -166,6 +167,8 @@ for (v in 1:V) {
   MSPE[v, 7] = MSPE.ppr.best
   
 }
+
+#Generate MSPE value table and boxplot
 View(MSPE)
 
 summary(MSPE)
@@ -178,17 +181,8 @@ low2=apply(MSPE, 1, min)
 par(mfrow=c(1,3))
 boxplot(MSPE/low2, las=2.5, main="Relative MSPE of 10 fold for different methods" )
 
-
-
-
-pred.gam = predict(gam.all, newdata=data.t)
-View(pred.gam)
-
-
-
-
-data <- read_csv("Data2020.csv")
-data.t <- read_csv("Data2020testX.csv")
+# As GAM turns out to be our optimal model
+# Find the most optimal loop for GAM training and get prediction
 
 get.folds = function(n, V){
   n.fold = ceiling(n / V) 
@@ -223,19 +217,26 @@ x
 gam.all <- gam(data=data[folds!=x,], formula=Y~s(X1)+s(X2)+s(X3)+s(X4,k=length(unique(data.train$X4)))+
                  s(X5)+s(X6)+s(X7)+s(X8)+s(X9)+s(X10, k=length(unique(data.train$X10)))+
                  s(X11)+s(X12, k= length(unique(data.train$X12)))+s(X13),  family=gaussian(link=identity))
-pred.gam = predict(gam.all, newdata=data.t)
-View(pred.gam)
 
+prediction <- predict(gam.all, data.t)
+
+# Graph the visualization for the prediction and actual value
+
+data.t <- read.csv("Data2020testX.csv")
+actual <- read.csv("result.csv")
+for (i in 1:13){
+  xx <- paste("X", i, sep = "")
+  colnames(data.t)[i] <- xx
+}
+
+x <- 1:750
 x11(h=7, w=10)
-par(mfrow=c(4,4))
-plot(gam.all, main="GAM Marginal Splines")
-pred.gam
+plot(x, y=prediction, col="red", pch=23, main = "Scatter plot of actual vs prediction value")
+points(x, y = actual)
+legend(1, 13.5, legend=c("Actual", "Prediction"),
+       col=c("black", "red"), lty=3:4, cex=1, bg="white")
 
-library(MASS)
-getwd()
-setwd("C:/Users/hoatr/OneDrive/Documents/")
-?write.table
-write.table(as.data.frame(pred.gam), file ="Hoa.txt", sep=",")
+
 
 
 
