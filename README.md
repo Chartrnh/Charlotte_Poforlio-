@@ -1,5 +1,5 @@
 ## Side note
-As for project's topic, I figure that it is consequential to choose ones that showcase each essential steps of the data analysis process, which are: 
+As for the first topic, I figure that it is consequential to choose ones that showcase each essential steps of the data analysis process, which are: 
 - Ask 
 - Prepare 
 - Process
@@ -7,7 +7,7 @@ As for project's topic, I figure that it is consequential to choose ones that sh
 - Share 
 - Act 
 
-Out of the six phases, Analyze is the one part that demands both knowledge and practical skills to achieve due to its nature of unpredictability. It entails using tools to format, transform data , identify pattern, and draw conclusion. To choose the closest model, it cannot solely base on its fittingness on existing data, but also on the future data that is not yet collected. if a model is running too close with the existing data, we are running the risk of overfitting which just simply implies its vulnerability to extreme future variance. However, if too simple of a model is chosen, it will result in high error. That is also the concept of bias-variance trade off that we will have to keep in mind when dealing different machinery. 
+Out of the six phases, Analyze is the one part that demands both knowledge and practical skills to achieve due to its nature of unpredictability. It entails using tools to format, transform data , identify pattern, and draw conclusion. To choose the closest model, it cannot solely base on its fittingness on existing data, but also its fittingness on future data. If a model is too close with the existing data or shows signs of chasing after extreme outlier, we are running the risk of overfitting which makes it extremely vulnerable to future variance. However, if too simple of a model is chosen, it will result in high error. That is also the concept of bias-variance trade off that we will have to keep in mind when dealing different machinery. 
 
 As for now, to tackle the complexity of this matter, I will start off with a topic that is just about model selections. Specifically, I will dive into a dataset with 15 explanatory variables and one response variable. The chosen data will attempt to explain the effect that outer factors have on one's choice of meal cost, such as their financial situation, education, number of meals a day, workclass etc, and how we can predict their choice based on these characeristics. The objective of this project is to only focus on finding the most suitable prediction model for it and use it to test on other datasets. 
 
